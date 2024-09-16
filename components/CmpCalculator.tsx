@@ -33,8 +33,9 @@ const CMPCalculator = () => {
     }));
   };
 
-  const mettreAJourLigne = (index: any, champ: any, valeur: any) => {
+  const mettreAJourLigne = (index: number, champ: string, valeur: any) => {
     const nouvellesLignes = [...state.lignes];
+    // @ts-ignore
     nouvellesLignes[index][champ] = valeur;
     setState((prevState) => ({
       ...prevState,

@@ -4,8 +4,36 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-const CMPCalculator = () => {
-  const initialState = {
+interface Ligne {
+  volume: string;
+  prix: string;
+}
+
+interface Resultats {
+  lignes: Array<{
+    volume: number;
+    prix: number;
+    mb: number;
+    f: number;
+    mn: number;
+  }>;
+  volumeTotal: number;
+  montantTotal: number;
+  cmpFinal: number;
+  sommeMN: number;
+  sommeVolume: number;
+}
+
+interface State {
+  tauxFrais: string;
+  lignes: Ligne[];
+  volumeInitial: string;
+  cmpInitial: string;
+  resultats: Resultats | null;
+}
+
+const CMPCalculator: React.FC = () => {
+  const initialState: State = {
     tauxFrais: "",
     lignes: [{ volume: "", prix: "" }],
     volumeInitial: "",
@@ -13,7 +41,7 @@ const CMPCalculator = () => {
     resultats: null,
   };
 
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState<State>(initialState);
 
   const resetForm = () => {
     setState(initialState);
@@ -26,16 +54,15 @@ const CMPCalculator = () => {
     }));
   };
 
-  const retirerLigne = (index: any) => {
+  const retirerLigne = (index: number) => {
     setState((prevState) => ({
       ...prevState,
       lignes: prevState.lignes.filter((_, i) => i !== index),
     }));
   };
 
-  const mettreAJourLigne = (index: number, champ: string, valeur: any) => {
+  const mettreAJourLigne = (index: number, champ: keyof Ligne, valeur: string) => {
     const nouvellesLignes = [...state.lignes];
-    // @ts-ignore
     nouvellesLignes[index][champ] = valeur;
     setState((prevState) => ({
       ...prevState,
@@ -89,7 +116,7 @@ const CMPCalculator = () => {
     const volumeTotal = sommeVolume + parseFloat(state.volumeInitial);
     const cmpFinal = montantTotal / volumeTotal;
 
-    setState((prevState): any => ({
+    setState((prevState) => ({
       ...prevState,
       resultats: {
         lignes: resultatsLignes,

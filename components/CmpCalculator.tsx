@@ -244,7 +244,7 @@ const CMPCalculator: React.FC = () => {
             <thead>
               <tr>
                 <th className="border p-2">Volume</th>
-                <th className="border p-2">Prix d'achat</th>
+                <th className="border p-2">Prix d&apos;achat</th>
                 <th className="border p-2">Montant Brut</th>
                 <th className="border p-2">Frais</th>
                 <th className="border p-2">Montant Net</th>
